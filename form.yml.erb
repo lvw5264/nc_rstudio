@@ -1,17 +1,19 @@
-cluster: "sherlock"
+cluster: "*"
 
+# sh_common needs to exist in the parent directory above this file to import forms and attributes
 form:
-  - auto_modules_R
-<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../_common/form/form.yml") do |line| %>
+  # automatically render versions of modules of module load r as options
+  - auto_modules_r
+<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../sh_common/form/form.yml") do |line| %>
   <%= line %>
 <%- end -%>
 
 attributes:
 
-  auto_modules_R:
+  auto_modules_r:
     default: false
-    value: R/4.2.0
+    value: r/4.5.1
 
-<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../_common/form/attributes.yml") do |line| %>
+<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../sh_common/form/attributes.yml") do |line| %>
   <%= line %>
 <%- end -%>

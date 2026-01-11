@@ -4,7 +4,7 @@ category: Interactive Apps
 subcategory: IDE
 role: batch_connect
 description: |
-  This app will launch [RStudio Server] an IDE for [R] on [Sherlock].
+  This app will launch [RStudio Server], an IDE for [R]. [Based on Stanford Sherlock OOD App configs].
   
   [RStudio Server]: https://www.rstudio.com/products/rstudio-server/
   [R]: https://www.r-project.org/

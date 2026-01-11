@@ -2,8 +2,9 @@
 
 # load modules
 module reset
-module load rstudio/2023
-module load <%= context.auto_modules_R %>
+# make sure rstudioserver module exists and contains Posit provided RStudio paths
+module load rstudioserver
+module load <%= context.auto_modules_r %>
 <%- unless context.sh_modules.blank? -%>
 module load <%= context.sh_modules %>
 <%- end -%>
