@@ -16,8 +16,6 @@ export RSTUDIO_CONFIG_DIR=$PWD      # system config, in a path readable by OOD j
 export RSTUDIO_DATA_DIR="$(mktemp -d)/rserver"  # per-session sockets
 export RSTUDIO_AUTH="$PWD/bin/auth"
 
-export TMPDIR="$(mktemp -d)"
-
 _workspace_dir=<%= context.sh_workspace.blank? ? "$HOME" : context.sh_workspace %>
 
 cat <<-EOF > $RSTUDIO_CONFIG_DIR/rserver.conf
