@@ -2,29 +2,36 @@
 
 # load modules
 module reset
-# make sure rstudioserver module exists and contains Posit provided RStudio paths
-module load rstudioserver
+# make sure rserver module exists and contains Posit provided RStudio paths
+module load rserver
 module load <%= context.auto_modules_r %>
 <%- unless context.sh_modules.blank? -%>
 module load <%= context.sh_modules %>
 <%- end -%>
 
 # create server configuration
-export RSTUDIO_CONFIG_DIR=$PWD      # system config
-export RSTUDIO_DATA_HOME=$PWD       # per-session storage
+# PWD refers to job folder
+export RSTUDIO_CONFIG_DIR=$PWD      # system config, in a path readable by OOD job output
+# create /tmp directory for storing 4KB of sockets. note this directory will be set chmod 777 readable by anyone by rstudio server
+export RSTUDIO_DATA_DIR="$(mktemp -d)/rserver"  # per-session sockets
 export RSTUDIO_AUTH="$PWD/bin/auth"
+
+export TMPDIR="$(mktemp -d)"
 
 _workspace_dir=<%= context.sh_workspace.blank? ? "$HOME" : context.sh_workspace %>
 
 cat <<-EOF > $RSTUDIO_CONFIG_DIR/rserver.conf
 server-user=$USER
 www-port=$port
+# if you get any login problems with csrf, set auth-none=1 temporarily to disable csrf-token and password auth
 auth-none=0
 auth-pam-helper-path=$RSTUDIO_AUTH
 auth-encrypt-password=0
 auth-timeout-minutes=0
 database-config-file=$RSTUDIO_CONFIG_DIR/database.conf
-server-data-dir=$L_SCRATCH_JOB
+# use /tmp to store rstudio data. make sure the server has enough ram
+# Also beware that this directory will be set chmod 777
+server-data-dir=$RSTUDIO_DATA_DIR
 server-app-armor-enabled=0
 EOF
 
