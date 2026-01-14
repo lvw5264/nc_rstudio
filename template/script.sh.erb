@@ -16,6 +16,14 @@ export RSTUDIO_CONFIG_DIR=$PWD      # system config, in a path readable by OOD j
 export RSTUDIO_DATA_DIR="$(mktemp -d)/rserver"  # per-session sockets
 export RSTUDIO_AUTH="$PWD/bin/auth"
 
+### Alternative to password auth if your webapp supports it
+## https://github.com/tefarley/ood-rstudio/blob/main/template/script.sh.erb
+#export RSTUDIO_COOKIE_FILE="${RSTUDIO_DATA_DIR}/secure-cookie-key"
+#python3 -c 'from uuid import uuid4; print(uuid4())' > "${RSTUDIO_COOKIE_FILE}"
+#chmod 0600 "${RSTUDIO_COOKIE_FILE}"
+## Then make sure to configure rserver.con
+
+
 _workspace_dir=<%= context.sh_workspace.blank? ? "$HOME" : context.sh_workspace %>
 
 cat <<-EOF > $RSTUDIO_CONFIG_DIR/rserver.conf
