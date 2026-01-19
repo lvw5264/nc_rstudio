@@ -1,10 +1,11 @@
 cluster: "*"
 
-# sh_common needs to exist in the parent directory above this file to import forms and attributes
+# nc_common needs to exist in the parent directory above this file to import forms and attributes
 form:
   # automatically render versions of modules of module load r as options
+  - auto_modules_rstudio
   - auto_modules_r
-<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../sh_common/form/form.yml") do |line| %>
+<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../nc_common/form/form.yml") do |line| %>
   <%= line %>
 <%- end -%>
 
@@ -14,6 +15,6 @@ attributes:
     default: false
     value: r/4.5.1
 
-<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../sh_common/form/attributes.yml") do |line| %>
+<%- IO.foreach(File.expand_path(File.dirname(__FILE__))+"/../nc_common/form/attributes.yml") do |line| %>
   <%= line %>
 <%- end -%>

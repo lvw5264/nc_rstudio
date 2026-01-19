@@ -3,7 +3,7 @@
 # load modules
 module reset
 # make sure rserver module exists and contains Posit provided RStudio paths
-module load rserver
+module load <%= context.auto_modules_rserver %>
 module load <%= context.auto_modules_r %>
 <%- unless context.sh_modules.blank? -%>
 module load <%= context.sh_modules %>

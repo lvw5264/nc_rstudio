@@ -6,14 +6,14 @@ batch_connect:
 script:
   native: [
             "-N", "1",
-            "-c", "<%= sh_cpus.blank?  ? 1 : sh_cpus.to_i %>",
-            <%- if not sh_gpus.blank? -%>
-                "-G", "<%= sh_gpus.to_i %>",
+            "-c", "<%= nc_cpus.blank?  ? 1 : nc_cpus.to_i %>",
+            <%- if not nc_gpus.blank? -%>
+                "-G", "<%= nc_gpus.to_i %>",
             <%- end -%>
-            <%- if not sh_mem.blank? -%>
-                "--mem", "<%= sh_mem.to_i %>G",
+            <%- if not nc_mem.blank? -%>
+                "--mem", "<%= nc_mem.to_i %>G",
             <%- end -%>
-            <%- if not sh_features.blank? -%>
-                "--constraint", "<%= sh_features %>"
+            <%- if not nc_features.blank? -%>
+                "--constraint", "<%= nc_features %>"
             <%- end -%>
           ]
